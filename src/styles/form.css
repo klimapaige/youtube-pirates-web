@@ -1,0 +1,20 @@
+form.form {
+  display: flex;
+  background: black;
+  width: 80%;
+  padding: 1%;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+div.formTitle h2 {
+  padding-left: 5%;
+}
+
+div.formTitle h3 {
+  padding-left: 10%;
+}
+
+form.form input {
+  padding: 1%;
+}
