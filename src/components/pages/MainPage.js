@@ -2,11 +2,12 @@ import React, { Component } from "react";
 
 import "../../styles/form.css";
 
-export default class extends Component {
+export default class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: ""
+      url: "",
+      isLoading: false
     };
   }
 
@@ -14,18 +15,34 @@ export default class extends Component {
     this.setState({ url });
   };
 
-  handleSubmit = e => {
-    console.log(this.state);
+  handleSubmit = async e => {
     e.preventDefault();
+    let { data } = this.props;
+    let { url } = this.state;
+    console.log(this.props);
+    console.log(url);
+    this.setState({ isLoading: true });
+    try {
+      await data.fetchDownload({ url });
+      this.setState({ isLoading: false });
+    } catch (e) {
+      console.log(e);
+      this.setState({ isLoading: false, error: "Could not get the video" });
+    }
   };
 
   render() {
-    return (
+    let { isLoading, error } = this.state;
+    return isLoading ? (
+      <div id="loading"></div>
+    ) : (
       <div>
         <div className="formTitle">
           <h2>Where we steal the amazing video loot on YouTube.</h2>
           <h3>Enter The Url To plunder</h3>
+          <h4 className="error">{error}</h4>
         </div>
+
         <form className="form" onSubmit={this.handleSubmit}>
           <input
             type="text"

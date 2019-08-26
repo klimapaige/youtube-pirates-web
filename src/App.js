@@ -1,33 +1,22 @@
 import React from "react";
 // routing specifics
 import { BrowserRouter, Route } from "react-router-dom";
-import Nav from "./components/routing/Navigation";
+// import Nav from "./components/routing/Navigation";
 import Routes from "./components/routing/RouteTable";
 
 // the pages we've made so far.
 import Home from "./components/pages/MainPage";
-import Search from "./components/pages/SearchPage";
 
 //all the CSS
 import "./App.css";
 
-// data management stuffs
-import * as Mock from "youtube-pirates-shared";
+import * as Api from "./data/RipperAPI";
 
-const WrappedComponent = (CustomComponent, props = {}) => () => (
-  <CustomComponent {...props} />
-);
+const appLinks = [{ link: "/Home", component: Home, title: "Home" }];
 
-const appLinks = [
-  { link: "/Home", component: Home, title: "Home" },
-  {
-    link: "/Search",
-    component: WrappedComponent(Search, {
-      data: { fetchVideos: async () => [] }
-    }),
-    title: "Search"
-  }
-];
+const WrapperComponent = (WrappedComponent, props) => {
+  return otherProps => <WrappedComponent {...otherProps} {...props} />;
+};
 
 export default function App() {
   return (
@@ -35,10 +24,14 @@ export default function App() {
       <BrowserRouter>
         <header>
           <h1>YouTube Pirates</h1>
-          <Nav links={appLinks} />
+          {/* <Nav links={appLinks} /> */}
         </header>
-        <Route path="/" exact component={Home} />
-        <Routes links={appLinks} />
+        <Route
+          path="/"
+          exact
+          component={WrapperComponent(Home, { data: Api })}
+        />
+        <Routes links={appLinks} props={{ data: Api }} />
         <footer>
           <h2>YouTube Pirates LLC &copy;</h2>
           <h3>Established IDK When</h3>

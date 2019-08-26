@@ -1,7 +1,13 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-export default function RouteTable({ links = [], injectedProps = {} }) {
+const WrappedComponent = (WrappedComponent, props) => {
+  const comp = otherProps => <WrappedComponent {...otherProps} {...props} />;
+  return comp;
+};
+
+export default function RouteTable({ links = [], props = {} }) {
+  console.log(props.data);
   return (
     <main>
       {links.map(({ link, component, isExact = true }) =>
@@ -10,15 +16,13 @@ export default function RouteTable({ links = [], injectedProps = {} }) {
             key={link}
             exact
             path={link}
-            component={component}
-            {...injectedProps}
+            component={WrappedComponent(component, props)}
           />
         ) : (
           <Route
             key={link + "_loose"}
             path={link}
-            component={component}
-            {...injectedProps}
+            component={WrappedComponent(component, props)}
           />
         )
       )}

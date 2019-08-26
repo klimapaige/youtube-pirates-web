@@ -1,8 +1,14 @@
+/* 
+#FF0000
+#FFFFFF
+#282828
+ */
+
 form.form {
   display: flex;
-  background: black;
+  background: #282828;
   width: 80%;
-  padding: 1%;
+  padding: 0.5%;
   margin: 0 auto;
   flex-direction: column;
 }
