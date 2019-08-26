@@ -1,4 +1,4 @@
-const BaseUrl = "http://localhost:8080";
+const BaseUrl = "http://35.184.11.66:80";
 const RipperUrl = BaseUrl + "/ripper";
 
 export const fetchDownload = ({ url }) => {
