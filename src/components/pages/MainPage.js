@@ -21,7 +21,7 @@ export default class MainPage extends Component {
     let { url } = this.state;
     console.log(this.props);
     console.log(url);
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, error: null });
     try {
       await data.fetchDownload({ url });
       this.setState({ isLoading: false });
